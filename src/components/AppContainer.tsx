@@ -142,6 +142,18 @@ const AppContainer: React.FC = () => {
       );
     });
 
+    client.on("initialized", () => {
+      console.info("clientAPI.initialized");
+    });
+
+    client.on("initFailed", ({ error }) => {
+      console.error("clientAPI.initFailed", error);
+      if (error) {
+        const errorMsg = `clientAPI.initFailed: ${error.message}`;
+        console.error(errorMsg);
+      }
+    });
+
     client.on("conversationJoined", (conversation) => {
       upsertConversation(conversation);
 
